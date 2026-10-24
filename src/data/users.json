@@ -1,0 +1,9 @@
+[
+  {
+    "id": "user-admin",
+    "nombre": "Administrador",
+    "email": "admin@hybridparts.com",
+    "password": "Admin1234",
+    "rol": "admin"
+  }
+]
