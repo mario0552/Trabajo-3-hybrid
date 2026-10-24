@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Admin from "./pages/Admin";
 import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -21,7 +22,14 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute adminOnly>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
