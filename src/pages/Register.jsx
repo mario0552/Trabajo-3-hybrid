@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import FormInput from "../components/FormInput";
 import {
   validateName,
   validateEmail,
   validatePassword,
 } from "../utils/Validators";
+import { register } from "../utils/auth";
 
 function Register() {
-  const { register } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     nombre: "",

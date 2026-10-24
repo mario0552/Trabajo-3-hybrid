@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { Link, NavLink, useNavigate } from "react-router";
+import { getUser, logout } from "../utils/auth";
 
 function Navbar() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const { currentUser, isLoggedIn, isAdmin, logout } = useAuth();
+
+  const user = getUser();
+  const isAdmin = user?.role === "admin";
 
   const close = () => setOpen(false);
 
@@ -14,6 +17,7 @@ function Navbar() {
   function handleLogout() {
     logout();
     close();
+    navigate("/login");
   }
 
   return (
@@ -54,10 +58,10 @@ function Navbar() {
             </li>
           )}
 
-          {isLoggedIn ? (
+          {user ? (
             <>
               <li className="py-2 font-semibold text-principal">
-                {currentUser.nombre}
+                {user.nombre}
               </li>
               <li>
                 <button
