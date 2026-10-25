@@ -1,3 +1,5 @@
+import Button from "../Button";
+
 const inputClass =
   "mt-1 w-full rounded border border-borde bg-fondo px-3 py-2 text-texto outline-none focus:border-principal";
 
@@ -118,19 +120,12 @@ function ProductForm({
       )}
 
       <div className="flex justify-end gap-3">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-full border border-borde px-5 py-2 font-semibold transition hover:bg-fondo"
-        >
+        <Button variant="outline" onClick={onCancel} className="px-5">
           Cancelar
-        </button>
-        <button
-          type="submit"
-          className="rounded-full bg-principal px-5 py-2 font-semibold text-white transition hover:opacity-90"
-        >
+        </Button>
+        <Button type="submit" className="px-5">
           {isEditing ? "Guardar cambios" : "Crear producto"}
-        </button>
+        </Button>
       </div>
     </form>
   );

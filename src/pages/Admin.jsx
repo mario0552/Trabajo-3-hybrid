@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { ProductsContext } from "../context/ProductsContext";
 import ProductTable from "../components/Admin/ProductTable";
 import ProductForm from "../components/Admin/ProductForm";
+import Modal from "../components/Modal";
 
 const emptyProduct = {
   codigo: "",
@@ -137,48 +138,21 @@ function Admin() {
       />
 
       {isModalOpen && (
-        <div
-          className="fixed inset-0 z-60 flex items-center justify-center overflow-y-auto bg-black/60 p-4"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) closeModal();
-          }}
+        <Modal
+          title={editingProduct ? "Editar producto" : "Nuevo producto"}
+          description="Completá los datos del producto para el catálogo."
+          onClose={closeModal}
         >
-          <section
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="product-modal-title"
-            className="my-auto w-full max-w-2xl rounded-2xl border border-borde bg-superficie p-6 shadow-2xl"
-          >
-            <div className="mb-5 flex items-start justify-between gap-4">
-              <div>
-                <h2 id="product-modal-title" className="text-2xl font-bold">
-                  {editingProduct ? "Editar producto" : "Nuevo producto"}
-                </h2>
-                <p className="mt-1 text-sm text-suave">
-                  Completá los datos del producto para el catálogo.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={closeModal}
-                className="rounded-full px-3 py-1 text-xl text-suave hover:bg-fondo hover:text-texto"
-                aria-label="Cerrar formulario"
-              >
-                ×
-              </button>
-            </div>
-
-            <ProductForm
-              formData={formData}
-              formError={formError}
-              isEditing={Boolean(editingProduct)}
-              categories={categories}
-              onChange={handleChange}
-              onSubmit={handleSubmit}
-              onCancel={closeModal}
-            />
-          </section>
-        </div>
+          <ProductForm
+            formData={formData}
+            formError={formError}
+            isEditing={Boolean(editingProduct)}
+            categories={categories}
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+            onCancel={closeModal}
+          />
+        </Modal>
       )}
     </section>
   );

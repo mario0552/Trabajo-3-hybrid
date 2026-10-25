@@ -1,3 +1,5 @@
+import Button from "../Button";
+
 function UserTable({ users, onDelete }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-borde bg-superficie/80">
@@ -31,17 +33,16 @@ function UserTable({ users, onDelete }) {
                   <div className="flex justify-end">
                     {user.role === "admin" ? (
                       <span className="text-sm text-suave">
-                        No se puede eliminar
+                        Usuario Dios - Imposible Eliminar
                       </span>
                     ) : (
-                      <button
-                        type="button"
+                      <Button
+                        variant="danger"
                         onClick={() => onDelete(user)}
-                        className="rounded-full border border-red-500/40 px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
                         aria-label={`Eliminar ${user.nombre}`}
                       >
                         Eliminar
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </td>
