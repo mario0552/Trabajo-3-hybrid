@@ -59,11 +59,22 @@ function Navbar() {
           </li>
 
           {isAdmin && (
-            <li>
-              <NavLink to="/admin" onClick={close} className={linkClass}>
-                Gestion de Stock
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/admin" end onClick={close} className={linkClass}>
+                  Gestión de stock
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/admin/usuarios"
+                  onClick={close}
+                  className={linkClass}
+                >
+                  Gestión de usuarios
+                </NavLink>
+              </li>
+            </>
           )}
 
           {user ? (
