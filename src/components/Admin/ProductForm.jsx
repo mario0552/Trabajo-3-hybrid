@@ -5,6 +5,7 @@ function ProductForm({
   formData,
   formError,
   isEditing,
+  categories,
   onChange,
   onSubmit,
   onCancel,
@@ -36,14 +37,20 @@ function ProductForm({
         </label>
         <label className="mb-4 block text-sm text-suave">
           Categoría
-          <input
+          <select
             name="categoria"
             value={formData.categoria}
             onChange={onChange}
             required
-            maxLength={80}
             className={inputClass}
-          />
+          >
+            <option value="">Elegí una categoría</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </label>
         <label className="mb-4 block text-sm text-suave">
           Precio

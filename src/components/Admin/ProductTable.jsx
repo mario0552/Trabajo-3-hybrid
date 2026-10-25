@@ -2,7 +2,7 @@ function ProductTable({ products, onEdit, onDelete }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-borde bg-superficie/80">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[680px] divide-y divide-borde text-left">
+        <table className="w-full min-w-170 divide-y divide-borde text-left">
           <thead className="bg-fondo/70">
             <tr className="text-sm text-suave">
               <th scope="col" className="px-5 py-4 font-semibold">

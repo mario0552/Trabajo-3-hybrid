@@ -21,6 +21,7 @@ function Admin() {
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState(emptyProduct);
   const [formError, setFormError] = useState("");
+  const categories = [...new Set(products.map((product) => product.categoria))];
 
   const openCreateModal = () => {
     setEditingProduct(null);
@@ -137,7 +138,7 @@ function Admin() {
 
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-black/60 p-4"
+          className="fixed inset-0 z-60 flex items-center justify-center overflow-y-auto bg-black/60 p-4"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) closeModal();
           }}
@@ -171,6 +172,7 @@ function Admin() {
               formData={formData}
               formError={formError}
               isEditing={Boolean(editingProduct)}
+              categories={categories}
               onChange={handleChange}
               onSubmit={handleSubmit}
               onCancel={closeModal}
