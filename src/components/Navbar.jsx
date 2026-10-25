@@ -52,17 +52,16 @@ function Navbar() {
             </NavLink>
           </li>
 
-           <li>
+          <li>
             <NavLink to="/contacto" onClick={close} className={linkClass}>
               Contacto
             </NavLink>
           </li>
-          
 
           {isAdmin && (
             <li>
               <NavLink to="/admin" onClick={close} className={linkClass}>
-                Stop de productos
+                Gestion de Stock
               </NavLink>
             </li>
           )}
