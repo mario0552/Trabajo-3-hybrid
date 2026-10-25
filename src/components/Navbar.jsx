@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { getUser, logout } from "../utils/auth";
+import { CartContext } from "../context/CartContext";
 
 function Navbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { itemCount } = useContext(CartContext);
 
   const user = getUser();
   const isAdmin = user?.role === "admin";
@@ -50,10 +52,17 @@ function Navbar() {
             </NavLink>
           </li>
 
+           <li>
+            <NavLink to="/contacto" onClick={close} className={linkClass}>
+              Contacto
+            </NavLink>
+          </li>
+          
+
           {isAdmin && (
             <li>
               <NavLink to="/admin" onClick={close} className={linkClass}>
-                Admin
+                Stop de productos
               </NavLink>
             </li>
           )}
@@ -91,6 +100,39 @@ function Navbar() {
               </li>
             </>
           )}
+          <li>
+            <NavLink
+              to="/carrito"
+              onClick={close}
+              aria-label={`Carrito de compras, ${itemCount} productos`}
+              className={({ isActive }) =>
+                `inline-flex items-center gap-2 py-2 transition hover:text-principal ${
+                  isActive ? "text-principal" : "text-suave"
+                }`
+              }
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="h-5 w-5"
+              >
+                <path
+                  d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 1.9-1.4L22 8H6"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle cx="10" cy="20" r="1.5" fill="currentColor" />
+                <circle cx="18" cy="20" r="1.5" fill="currentColor" />
+              </svg>
+              Carrito
+              <span className="min-w-6 rounded-full bg-principal px-2 py-0.5 text-center text-xs font-bold text-white">
+                {itemCount}
+              </span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
