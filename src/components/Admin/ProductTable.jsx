@@ -1,3 +1,5 @@
+import Button from "../Button";
+
 function ProductTable({ products, onEdit, onDelete }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-borde bg-superficie/80">
@@ -38,22 +40,20 @@ function ProductTable({ products, onEdit, onDelete }) {
                 <td className="px-5 py-4 text-sm">{product.stock ?? 0}</td>
                 <td className="px-5 py-4">
                   <div className="flex justify-end gap-2">
-                    <button
-                      type="button"
+                    <Button
+                      variant="outline"
                       onClick={() => onEdit(product)}
-                      className="rounded-full border border-borde px-4 py-2 text-sm font-medium transition hover:border-principal hover:text-principal"
                       aria-label={`Editar ${product.nombre}`}
                     >
                       Editar
-                    </button>
-                    <button
-                      type="button"
+                    </Button>
+                    <Button
+                      variant="danger"
                       onClick={() => onDelete(product)}
-                      className="rounded-full border border-red-500/40 px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
                       aria-label={`Eliminar ${product.nombre}`}
                     >
                       Eliminar
-                    </button>
+                    </Button>
                   </div>
                 </td>
               </tr>
