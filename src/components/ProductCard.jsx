@@ -8,7 +8,7 @@ function ProductCard({ product }) {
   const soldOut = stock === 0;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-borde bg-superficie/100 backdrop-blur-sm">
+    <article className="flex flex-col overflow-hidden rounded-2xl border border-borde bg-superficie backdrop-blur-sm">
       <img
         src={imagen}
         alt={nombre}
