@@ -7,7 +7,7 @@ const emptyProduct = {
   categoria: "",
   precio: "",
   marca: "",
-  stock: "0",
+  stock: "",
   imagen: "",
   descripcion: "",
 };
@@ -22,7 +22,7 @@ function Admin() {
 
   const openCreateModal = () => {
     setEditingProduct(null);
-    setFormData(emptyProduct);
+    setFormData({ ...emptyProduct });
     setFormError("");
     setIsModalOpen(true);
   };
@@ -96,21 +96,37 @@ function Admin() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-8">
-      <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+      <div className="mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Administrar productos</h1>
-          <p className="mt-1 text-sm text-suave">
+          <div className="flex flex-wrap items-center gap-4">
+            <h1 className="text-3xl font-bold">Administrar productos</h1>
+            <button
+              type="button"
+              onClick={openCreateModal}
+              aria-haspopup="dialog"
+              className="inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-orange-300 bg-principal px-6 py-3 font-bold text-white shadow-lg shadow-orange-950/40 transition hover:scale-[1.02] hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="none"
+                className="h-5 w-5"
+              >
+                <path
+                  d="M10 4v12M4 10h12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+              Agregar producto
+            </button>
+          </div>
+          <p className="mt-2 text-sm text-suave">
             {products.length} {products.length === 1 ? "producto" : "productos"}{" "}
             en el catálogo
           </p>
         </div>
-        <button
-          type="button"
-          onClick={openCreateModal}
-          className="rounded-full bg-principal px-5 py-2.5 font-semibold text-white transition hover:opacity-90"
-        >
-          Agregar producto
-        </button>
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-borde bg-superficie/80">

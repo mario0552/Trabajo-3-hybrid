@@ -10,6 +10,7 @@ import Admin from "./pages/Admin";
 import AboutUs from "./pages/AboutUs";
 import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/productos" element={<Products />} />
+        <Route path="/carrito" element={<Cart />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

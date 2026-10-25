@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { getUser, logout } from "../utils/auth";
+import { CartContext } from "../context/CartContext";
 
 function Navbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { itemCount } = useContext(CartContext);
 
   const user = getUser();
   const isAdmin = user?.role === "admin";
@@ -45,6 +47,22 @@ function Navbar() {
             </NavLink>
           </li>
           <li>
+            <NavLink
+              to="/carrito"
+              onClick={close}
+              className={({ isActive }) =>
+                `inline-flex items-center gap-2 py-2 transition hover:text-principal ${
+                  isActive ? "text-principal" : "text-suave"
+                }`
+              }
+            >
+              Carrito
+              <span className="min-w-6 rounded-full bg-principal px-2 py-0.5 text-center text-xs font-bold text-white">
+                {itemCount}
+              </span>
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/about" onClick={close} className={linkClass}>
               Acerca de nosotros
             </NavLink>
@@ -60,7 +78,7 @@ function Navbar() {
           {isAdmin && (
             <li>
               <NavLink to="/admin" onClick={close} className={linkClass}>
-                Admin
+                Stop de productos
               </NavLink>
             </li>
           )}

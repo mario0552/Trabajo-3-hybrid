@@ -1,6 +1,9 @@
 import { Link } from "react-router";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 function ProductCard({ product }) {
+  const { addToCart } = useContext(CartContext);
   const { id, nombre, categoria, marca, precio, stock, imagen } = product;
   const soldOut = stock === 0;
 
@@ -24,6 +27,14 @@ function ProductCard({ product }) {
         <p className={`text-sm ${soldOut ? "text-red-400" : "text-suave"}`}>
           {soldOut ? "Sin stock" : `Stock: ${stock}`}
         </p>
+        <button
+          type="button"
+          onClick={() => addToCart(product)}
+          disabled={soldOut}
+          className="rounded-full border border-principal px-4 py-2 font-semibold text-principal transition hover:bg-principal hover:text-white disabled:cursor-not-allowed disabled:border-borde disabled:text-suave"
+        >
+          Agregar al carrito
+        </button>
 
         <Link
           to={`/product/${id}`}
