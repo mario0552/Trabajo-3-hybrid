@@ -11,6 +11,7 @@ import AboutUs from "./pages/AboutUs";
 import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
+import AdminUsers from "./pages/AdminUsers";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         {/* Protegida por login + role: solo "admin" */}
         <Route element={<ProtectedRoute allowedRole="admin" />}>
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/usuarios" element={<AdminUsers />} />
         </Route>
 
         <Route path="/404" element={<NotFound />} />
