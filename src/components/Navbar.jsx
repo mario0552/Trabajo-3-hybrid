@@ -47,22 +47,6 @@ function Navbar() {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/carrito"
-              onClick={close}
-              className={({ isActive }) =>
-                `inline-flex items-center gap-2 py-2 transition hover:text-principal ${
-                  isActive ? "text-principal" : "text-suave"
-                }`
-              }
-            >
-              Carrito
-              <span className="min-w-6 rounded-full bg-principal px-2 py-0.5 text-center text-xs font-bold text-white">
-                {itemCount}
-              </span>
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/about" onClick={close} className={linkClass}>
               Acerca de nosotros
             </NavLink>
@@ -116,6 +100,39 @@ function Navbar() {
               </li>
             </>
           )}
+          <li>
+            <NavLink
+              to="/carrito"
+              onClick={close}
+              aria-label={`Carrito de compras, ${itemCount} productos`}
+              className={({ isActive }) =>
+                `inline-flex items-center gap-2 py-2 transition hover:text-principal ${
+                  isActive ? "text-principal" : "text-suave"
+                }`
+              }
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="h-5 w-5"
+              >
+                <path
+                  d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 1.9-1.4L22 8H6"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle cx="10" cy="20" r="1.5" fill="currentColor" />
+                <circle cx="18" cy="20" r="1.5" fill="currentColor" />
+              </svg>
+              Carrito
+              <span className="min-w-6 rounded-full bg-principal px-2 py-0.5 text-center text-xs font-bold text-white">
+                {itemCount}
+              </span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
