@@ -1,13 +1,16 @@
 import { useContext } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { ProductsContext } from "../context/ProductsContext";
 import { CartContext } from "../context/CartContext";
+import { getUser } from "../utils/auth";
 
 function ProductDetail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { products } = useContext(ProductsContext);
   const { addToCart, getAvailableStock } = useContext(CartContext);
   const product = products.find((item) => item.id === id);
+  const isAuthenticated = Boolean(getUser());
 
   if (!product) {
     return (
@@ -25,6 +28,14 @@ function ProductDetail() {
 
   const availableStock = getAvailableStock(product);
   const soldOut = availableStock === 0;
+  const handleAddToCart = () => {
+    if (!getUser()) {
+      navigate("/register");
+      return;
+    }
+
+    addToCart(product);
+  };
 
   return (
     <section className="mx-auto grid max-w-6xl gap-8 px-4 py-8 md:grid-cols-2">
@@ -54,11 +65,11 @@ function ProductDetail() {
         )}
         <button
           type="button"
-          onClick={() => addToCart(product)}
+          onClick={handleAddToCart}
           disabled={soldOut}
           className="mt-8 rounded-full bg-principal px-6 py-3 font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:bg-borde"
         >
-          Agregar al carrito
+          {isAuthenticated ? "Agregar al carrito" : "Crear cuenta para comprar"}
         </button>
         <Link
           to="/productos"

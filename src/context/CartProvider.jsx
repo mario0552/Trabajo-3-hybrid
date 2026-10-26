@@ -2,6 +2,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { CartContext } from "./CartContext";
 import { ProductsContext } from "./ProductsContext.js";
 import { useContext } from "react";
+import { getUser } from "../utils/auth";
 
 function CartProvider({ children }) {
   const { products } = useContext(ProductsContext);
@@ -20,7 +21,7 @@ function CartProvider({ children }) {
   };
 
   const addToCart = (product) => {
-    if (getAvailableStock(product) < 1) return false;
+    if (!getUser() || getAvailableStock(product) < 1) return false;
 
     setCart((currentCart) => {
       const existingItem = currentCart.find((item) => item.id === product.id);
@@ -39,6 +40,8 @@ function CartProvider({ children }) {
   };
 
   const updateQuantity = (productId, quantity) => {
+    if (!getUser()) return;
+
     const nextQuantity = Math.floor(Number(quantity));
 
     if (!Number.isFinite(nextQuantity)) return;
