@@ -1,10 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { CartContext } from "../context/CartContext";
+import { ProductsContext } from "../context/ProductsContext";
 
 const formatPrice = (price) => `$ ${Number(price).toLocaleString("es-AR")}`;
 
 function Cart() {
+  const navigate = useNavigate();
+  const { products } = useContext(ProductsContext);
   const { cart, total, updateQuantity, removeFromCart, clearCart } =
     useContext(CartContext);
 
@@ -83,7 +86,14 @@ function Cart() {
                       onClick={() =>
                         updateQuantity(item.id, item.quantity + 1)
                       }
-                      className="h-9 w-9 rounded-full border border-borde font-bold transition hover:border-principal hover:text-principal"
+                      disabled={
+                        item.quantity >=
+                        Number(
+                          products.find((product) => product.id === item.id)
+                            ?.stock ?? 0,
+                        )
+                      }
+                      className="h-9 w-9 rounded-full border border-borde font-bold transition hover:border-principal hover:text-principal disabled:cursor-not-allowed disabled:opacity-40"
                       aria-label={`Aumentar cantidad de ${item.nombre}`}
                     >
                       +
@@ -116,6 +126,13 @@ function Cart() {
             <p className="mt-3 text-sm text-suave">
               El envío y el pago se coordinan al confirmar la compra.
             </p>
+            <button
+              type="button"
+              onClick={() => navigate("/404")}
+              className="mt-5 w-full rounded-full bg-principal px-5 py-3 font-bold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-principal"
+            >
+              Finalizar compra
+            </button>
           </aside>
         </div>
       )}

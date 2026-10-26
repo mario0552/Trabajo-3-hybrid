@@ -24,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/contacto" element={<NotFound />} />
         <Route path="/no-autorizado" element={<Unauthorized />} />
 
         {/* Protegida por login + role: solo "admin" */}

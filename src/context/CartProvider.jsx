@@ -1,10 +1,27 @@
 import useLocalStorage from "../hooks/useLocalStorage";
 import { CartContext } from "./CartContext";
+import { ProductsContext } from "./ProductsContext.js";
+import { useContext } from "react";
 
 function CartProvider({ children }) {
+  const { products } = useContext(ProductsContext);
   const [cart, setCart] = useLocalStorage("hp_cart", []);
 
+  const getAvailableStock = (productOrId) => {
+    const productId =
+      typeof productOrId === "object" ? productOrId.id : productOrId;
+    const product = products.find((item) => item.id === productId);
+
+    if (!product) return 0;
+
+    const quantityInCart =
+      cart.find((item) => item.id === productId)?.quantity ?? 0;
+    return Math.max(0, Number(product.stock ?? 0) - quantityInCart);
+  };
+
   const addToCart = (product) => {
+    if (getAvailableStock(product) < 1) return false;
+
     setCart((currentCart) => {
       const existingItem = currentCart.find((item) => item.id === product.id);
 
@@ -18,12 +35,18 @@ function CartProvider({ children }) {
 
       return [...currentCart, { ...product, quantity: 1 }];
     });
+    return true;
   };
 
   const updateQuantity = (productId, quantity) => {
     const nextQuantity = Math.floor(Number(quantity));
 
     if (!Number.isFinite(nextQuantity)) return;
+
+    const product = products.find((item) => item.id === productId);
+    if (nextQuantity > 0 && (!product || nextQuantity > Number(product.stock))) {
+      return;
+    }
 
     setCart((currentCart) =>
       nextQuantity <= 0
@@ -58,6 +81,7 @@ function CartProvider({ children }) {
         updateQuantity,
         removeFromCart,
         clearCart,
+        getAvailableStock,
       }}
     >
       {children}

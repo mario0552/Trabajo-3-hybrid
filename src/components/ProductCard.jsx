@@ -1,14 +1,40 @@
 import { Link } from "react-router";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CartContext } from "../context/CartContext";
 
 function ProductCard({ product }) {
-  const { addToCart } = useContext(CartContext);
-  const { id, nombre, categoria, marca, precio, stock, imagen } = product;
+  const { addToCart, getAvailableStock } = useContext(CartContext);
+  const [justAdded, setJustAdded] = useState(false);
+  const feedbackTimeout = useRef(null);
+  const { id, nombre, categoria, marca, precio, imagen } = product;
+  const stock = getAvailableStock(product);
   const soldOut = stock === 0;
 
+  useEffect(
+    () => () => {
+      window.clearTimeout(feedbackTimeout.current);
+    },
+    [],
+  );
+
+  const handleAddToCart = () => {
+    if (!addToCart(product)) return;
+
+    setJustAdded(true);
+    window.clearTimeout(feedbackTimeout.current);
+    feedbackTimeout.current = window.setTimeout(() => {
+      setJustAdded(false);
+    }, 800);
+  };
+
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-borde bg-superficie backdrop-blur-sm">
+    <article
+      className={`flex flex-col overflow-hidden rounded-2xl border bg-superficie backdrop-blur-sm transition duration-300 ${
+        justAdded
+          ? "scale-[1.02] border-principal shadow-[0_0_28px_rgba(255,122,0,0.28)]"
+          : "border-borde"
+      }`}
+    >
       <img
         src={imagen}
         alt={nombre}
@@ -29,11 +55,12 @@ function ProductCard({ product }) {
         </p>
         <button
           type="button"
-          onClick={() => addToCart(product)}
+          onClick={handleAddToCart}
           disabled={soldOut}
           className="rounded-full border border-principal px-4 py-2 font-semibold text-principal transition hover:bg-principal hover:text-white disabled:cursor-not-allowed disabled:border-borde disabled:text-suave"
+          aria-live="polite"
         >
-          Agregar al carrito
+          {justAdded ? "¡Agregado!" : "Agregar al carrito"}
         </button>
 
         <Link

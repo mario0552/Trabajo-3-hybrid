@@ -6,7 +6,7 @@ import { CartContext } from "../context/CartContext";
 function ProductDetail() {
   const { id } = useParams();
   const { products } = useContext(ProductsContext);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, getAvailableStock } = useContext(CartContext);
   const product = products.find((item) => item.id === id);
 
   if (!product) {
@@ -23,7 +23,8 @@ function ProductDetail() {
     );
   }
 
-  const soldOut = product.stock === 0;
+  const availableStock = getAvailableStock(product);
+  const soldOut = availableStock === 0;
 
   return (
     <section className="mx-auto grid max-w-6xl gap-8 px-4 py-8 md:grid-cols-2">
@@ -44,7 +45,7 @@ function ProductDetail() {
         <p
           className={`mt-2 text-sm ${soldOut ? "text-red-400" : "text-suave"}`}
         >
-          {soldOut ? "Sin stock" : `Stock disponible: ${product.stock}`}
+          {soldOut ? "Sin stock" : `Stock disponible: ${availableStock}`}
         </p>
         {product.descripcion && (
           <p className="mt-6 leading-relaxed text-suave">
