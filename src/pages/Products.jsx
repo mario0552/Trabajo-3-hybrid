@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useSearchParams } from "react-router";
 import { ProductsContext } from "../context/ProductsContext";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
@@ -14,7 +15,18 @@ const normalize = (text) =>
 function Products() {
   const { products } = useContext(ProductsContext);
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const category = searchParams.get("categoria") ?? "";
+
+  const setCategory = (value) => {
+    const nextParams = new URLSearchParams(searchParams);
+    if (value) {
+      nextParams.set("categoria", value);
+    } else {
+      nextParams.delete("categoria");
+    }
+    setSearchParams(nextParams, { replace: true });
+  };
 
   // Valores calculados: no son estado, se recalculan en cada render
   const categories = [...new Set(products.map((p) => p.categoria))];
