@@ -12,7 +12,7 @@ import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
 import AdminUsers from "./pages/AdminUsers";
-
+import Wishlist from "./pages/Wishlist";
 function App() {
   return (
     <Routes>
@@ -25,6 +25,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/no-autorizado" element={<Unauthorized />} />
+        {/* Protegida solo por login: cualquier usuario con sesión */}
+<Route element={<ProtectedRoute />}>
+  <Route path="/wishlist" element={<Wishlist />} />
+</Route>
 
         {/* Protegida por login + role: solo "admin" */}
         <Route element={<ProtectedRoute allowedRole="admin" />}>

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router";
 import { ProductsContext } from "../context/ProductsContext";
 import { CartContext } from "../context/CartContext";
 import { getUser } from "../utils/auth";
+import WishlistButton from "../components/WishlistButton";
 
 function ProductDetail() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ function ProductDetail() {
         >
           {isAuthenticated ? "Agregar al carrito" : "Crear cuenta para comprar"}
         </button>
+        <WishlistButton productId={product.id} conTexto className="mt-3" />
         <Link
           to="/productos"
           className="mt-4 text-sm text-suave transition hover:text-principal"
