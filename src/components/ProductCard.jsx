@@ -1,12 +1,15 @@
-import { Link } from "react-router";
 import { useContext, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { CartContext } from "../context/CartContext";
+import { getUser } from "../utils/auth";
 
 function ProductCard({ product }) {
+  const navigate = useNavigate();
   const { addToCart, getAvailableStock } = useContext(CartContext);
   const [justAdded, setJustAdded] = useState(false);
   const feedbackTimeout = useRef(null);
   const { id, nombre, categoria, marca, precio, imagen } = product;
+  const isAuthenticated = Boolean(getUser());
   const stock = getAvailableStock(product);
   const soldOut = stock === 0;
 
@@ -18,6 +21,11 @@ function ProductCard({ product }) {
   );
 
   const handleAddToCart = () => {
+    if (!getUser()) {
+      navigate("/register");
+      return;
+    }
+
     if (!addToCart(product)) return;
 
     setJustAdded(true);
@@ -60,7 +68,11 @@ function ProductCard({ product }) {
           className="rounded-full border border-principal px-4 py-2 font-semibold text-principal transition hover:bg-principal hover:text-white disabled:cursor-not-allowed disabled:border-borde disabled:text-suave"
           aria-live="polite"
         >
-          {justAdded ? "¡Agregado!" : "Agregar al carrito"}
+          {justAdded
+            ? "¡Agregado!"
+            : isAuthenticated
+              ? "Agregar al carrito"
+              : "Crear cuenta para comprar"}
         </button>
 
         <Link

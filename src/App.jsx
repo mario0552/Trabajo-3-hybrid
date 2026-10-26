@@ -24,7 +24,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/contacto" element={<NotFound />} />
         <Route path="/no-autorizado" element={<Unauthorized />} />
 
         {/* Protegida por login + role: solo "admin" */}
@@ -33,10 +32,10 @@ function App() {
           <Route path="/admin/usuarios" element={<AdminUsers />} />
         </Route>
 
-        <Route path="/404" element={<NotFound />} />
-
-        <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="/contacto" element={<NotFound />} />
+      <Route path="/404" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

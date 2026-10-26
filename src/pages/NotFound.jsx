@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 function NotFound() {
   return (
-    <main className="relative isolate flex min-h-[calc(100vh-8rem)] items-center justify-center overflow-hidden bg-zinc-950 px-4 py-16 text-zinc-100">
+    <main className="relative isolate flex min-h-svh items-center justify-center overflow-hidden bg-zinc-950 px-4 py-16 text-zinc-100">
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0); }

@@ -2,14 +2,38 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { CartContext } from "../context/CartContext";
 import { ProductsContext } from "../context/ProductsContext";
+import { getUser } from "../utils/auth";
 
 const formatPrice = (price) => `$ ${Number(price).toLocaleString("es-AR")}`;
 
 function Cart() {
   const navigate = useNavigate();
+  const user = getUser();
   const { products } = useContext(ProductsContext);
   const { cart, total, updateQuantity, removeFromCart, clearCart } =
     useContext(CartContext);
+
+  if (!user) {
+    return (
+      <section className="mx-auto max-w-6xl px-4 py-8">
+        <div className="rounded-2xl border border-borde bg-superficie/80 p-8 text-center">
+          <h1 className="text-2xl font-bold">
+            Necesitás una cuenta para comprar
+          </h1>
+          <p className="mx-auto mb-5 mt-2 max-w-lg text-suave">
+            Creá tu cuenta para agregar productos al carrito y continuar con tu
+            compra.
+          </p>
+          <Link
+            to="/register"
+            className="inline-flex rounded-full bg-principal px-5 py-2.5 font-semibold text-white transition hover:opacity-90"
+          >
+            Crear cuenta
+          </Link>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-8">
