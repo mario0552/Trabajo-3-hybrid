@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { CartContext } from "../context/CartContext";
 import { getUser } from "../utils/auth";
-
+import WishlistButton from "./WishlistButton";
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const { addToCart, getAvailableStock } = useContext(CartContext);
@@ -37,12 +37,15 @@ function ProductCard({ product }) {
 
   return (
     <article
-      className={`flex flex-col overflow-hidden rounded-2xl border bg-superficie backdrop-blur-sm transition duration-300 ${
+      className={`relative flex flex-col overflow-hidden rounded-2xl border bg-superficie backdrop-blur-sm transition duration-300 ${
         justAdded
           ? "scale-[1.02] border-principal shadow-[0_0_28px_rgba(255,122,0,0.28)]"
           : "border-borde"
       }`}
     >
+      <div className="absolute right-3 top-3 z-10">
+  <WishlistButton productId={id} />
+</div>
       <img
         src={imagen}
         alt={nombre}

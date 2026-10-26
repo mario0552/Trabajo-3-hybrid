@@ -104,42 +104,47 @@ function Navbar() {
           )}
 
           {user ? (
-            <>
-              <li
-                className="max-w-full truncate py-2 font-semibold text-principal xl:max-w-32"
-                title={user.nombre}
-              >
-                {user.nombre}
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="rounded bg-principal px-3 py-1.5 text-sm font-semibold text-white hover:opacity-90"
-                >
-                  Cerrar sesión
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <NavLink to="/login" onClick={close} className={linkClass}>
-                  Ingresar
-                </NavLink>
-              </li>
-              <li>
-                <Link
-                  to="/register"
-                  onClick={close}
-                  className="inline-block rounded bg-principal px-3 py-1.5 text-sm font-semibold text-white hover:opacity-90"
-                >
-                  Crear cuenta
-                </Link>
-              </li>
-            </>
-          )}
-          <li>
+  <>
+    <li>
+      <NavLink to="/wishlist" onClick={close} className={linkClass}>
+        Favoritos
+      </NavLink>
+    </li>
+    <li
+      className="max-w-full truncate py-2 font-semibold text-principal xl:max-w-32"
+      title={user.nombre}
+    >
+      {user.nombre}
+    </li>
+    <li>
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="rounded bg-principal px-3 py-1.5 text-sm font-semibold text-white hover:opacity-90"
+      >
+        Cerrar sesión
+      </button>
+    </li>
+  </>
+) : (
+  <>
+    <li>
+      <NavLink to="/login" onClick={close} className={linkClass}>
+        Ingresar
+      </NavLink>
+    </li>
+    <li>
+      <Link
+        to="/register"
+        onClick={close}
+        className="inline-block rounded bg-principal px-3 py-1.5 text-sm font-semibold text-white hover:opacity-90"
+      >
+        Crear cuenta
+      </Link>
+    </li>
+  </>
+)}
+<li>
             <NavLink
               to="/carrito"
               onClick={close}
