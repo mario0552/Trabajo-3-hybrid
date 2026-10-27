@@ -1,10 +1,14 @@
 import TeamCard from "../components/TeamCard";
+import jonaiker from "../assets/jn.jpeg";
+import will from "../assets/will.jpg";
+import isa from "../assets/is.jpeg";
+import fer from "../assets/fl.jpeg";
 
 const team = [
-  { name: "Jonaiker noriega", role: "Frontend", image: "src/assets/WhatsApp Image 2026-10-25 at 10.25.42 PM.jpeg" },
-  { name: "William Lopez", role: "Frontend", image: "https://raw.githubusercontent.com/mario0552/codigo-hybrid-jona/ec7c8e1a55a648e787e4e2169a4bff20c958e42e/assets/images/ribhavagrawal-ai-generated-8979714.jpg" },
-  { name: "Isaias Emanuel Soria", role: "Frontend", image: "src/assets/is.jpeg" },
-  { name: "Mario Fernando López", role: "Scrum Master", image: "src/assets/fl.jpeg" },
+  { name: "Jonaiker Noriega", role: "Tech-Leader", image: jonaiker },
+  { name: "William Lopez", role: "Frontend", image: will },
+  { name: "Isaias Emanuel Soria", role: "Frontend", image: isa },
+  { name: "Mario Fernando López", role: "Scrum Master", image: fer },
 ];
 
 const statistics = [
