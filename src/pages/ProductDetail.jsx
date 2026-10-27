@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, Navigate, useParams } from "react-router";
 import { ProductsContext } from "../context/ProductsContext";
 import { CartContext } from "../context/CartContext";
 import { getUser } from "../utils/auth";
@@ -13,19 +13,7 @@ function ProductDetail() {
   const product = products.find((item) => item.id === id);
   const isAuthenticated = Boolean(getUser());
 
-  if (!product) {
-    return (
-      <section className="mx-auto max-w-4xl px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold">Producto no encontrado</h1>
-        <Link
-          to="/productos"
-          className="mt-4 inline-flex rounded-full bg-principal px-5 py-2.5 font-semibold text-white"
-        >
-          Volver al catálogo
-        </Link>
-      </section>
-    );
-  }
+  if (!product) return <Navigate to="/404" replace />;
 
   const availableStock = getAvailableStock(product);
   const soldOut = availableStock === 0;
