@@ -2,6 +2,11 @@ import initialUsers from "../data/users.json";
 
 const USERS_KEY = "hp_users";
 const SESSION_KEY = "user";
+export const AUTH_CHANGE_EVENT = "hp:auth-change";
+
+function notifyAuthChange() {
+  window.dispatchEvent(new Event(AUTH_CHANGE_EVENT));
+}
 
 // Lista de usuarios: la primera vez se carga desde users.json
 export function getUsers() {
@@ -33,6 +38,7 @@ function saveSession(user) {
     token: crypto.randomUUID(),
   };
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  notifyAuthChange();
 }
 
 export function login(email, password) {
@@ -64,6 +70,7 @@ export function register({ nombre, email, password }) {
 
 export function logout() {
   localStorage.removeItem(SESSION_KEY);
+  notifyAuthChange();
 }
 
 // Los administradores no se pueden borrar
