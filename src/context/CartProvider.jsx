@@ -1,12 +1,44 @@
-import useLocalStorage from "../hooks/useLocalStorage";
 import { CartContext } from "./CartContext";
 import { ProductsContext } from "./ProductsContext.js";
-import { useContext } from "react";
-import { getUser } from "../utils/auth";
+import { useContext, useEffect, useState } from "react";
+import { AUTH_CHANGE_EVENT, getUser } from "../utils/auth";
+
+function getCartStorageKey(userId) {
+  return `hp_cart_${encodeURIComponent(userId)}`;
+}
+
+function loadCart(userId) {
+  if (!userId) return [];
+
+  try {
+    const saved = localStorage.getItem(getCartStorageKey(userId));
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+}
 
 function CartProvider({ children }) {
   const { products } = useContext(ProductsContext);
-  const [cart, setCart] = useLocalStorage("hp_cart", []);
+  const [userId, setUserId] = useState(() => getUser()?.id ?? null);
+  const [cart, setCart] = useState(() => loadCart(getUser()?.id ?? null));
+
+  useEffect(() => {
+    const handleAuthChange = () => {
+      const nextUserId = getUser()?.id ?? null;
+      setUserId(nextUserId);
+      setCart(loadCart(nextUserId));
+    };
+
+    window.addEventListener(AUTH_CHANGE_EVENT, handleAuthChange);
+    return () => window.removeEventListener(AUTH_CHANGE_EVENT, handleAuthChange);
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      localStorage.setItem(getCartStorageKey(userId), JSON.stringify(cart));
+    }
+  }, [cart, userId]);
 
   const getAvailableStock = (productOrId) => {
     const productId =
