@@ -45,7 +45,7 @@ function ProductDetail() {
         alt={product.nombre}
         className="h-72 w-full rounded-2xl border border-borde object-cover md:h-full md:max-h-[520px]"
       />
-      <div className="flex flex-col items-start">
+      <div className="flex flex-col items-start rounded-2xl border border-borde bg-superficie/80 p-5 backdrop-blur-sm">
         <p className="text-sm uppercase tracking-wide text-suave">
           {product.categoria}
           {product.marca ? ` · ${product.marca}` : ""}
