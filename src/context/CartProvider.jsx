@@ -98,7 +98,12 @@ function CartProvider({ children }) {
     );
   };
 
-  const clearCart = () => setCart([]);
+  const clearCart = () => {
+    if (userId) {
+      localStorage.setItem(getCartStorageKey(userId), JSON.stringify([]));
+    }
+    setCart([]);
+  };
 
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
   const total = cart.reduce(
