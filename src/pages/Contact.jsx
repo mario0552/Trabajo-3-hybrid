@@ -39,7 +39,7 @@ function Contact() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">Contacto</h1>
+      <h1 className="mb-6 text-3xl font-bold">CONTACTO</h1>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-borde">
@@ -57,7 +57,7 @@ function Contact() {
           className="rounded-2xl border border-borde bg-superficie/80 p-6 backdrop-blur-sm"
         >
           <FormInput
-            label="Nombre"
+            label="Nombre:"
             id="contacto-nombre"
             name="nombre"
             value={form.nombre}
@@ -65,7 +65,7 @@ function Contact() {
             error={errors.nombre}
           />
           <FormInput
-            label="Email"
+            label="Email:"
             id="contacto-email"
             name="email"
             type="email"
@@ -79,7 +79,7 @@ function Contact() {
               htmlFor="contacto-mensaje"
               className="mb-1 block text-sm text-suave"
             >
-              Mensaje
+              Mensaje:
             </label>
             <textarea
               id="contacto-mensaje"
@@ -98,7 +98,7 @@ function Contact() {
 
           {enviado && (
             <p className="mb-4 rounded border border-principal px-3 py-2 text-sm text-principal">
-              ¡Gracias! Recibimos tu consulta y te respondemos a la brevedad.
+              ¡Gracias! Recibimos tu consulta y te responderemos a la brevedad.
             </p>
           )}
 
