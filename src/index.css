@@ -14,3 +14,23 @@ body {
   background-image: url(./assets/fondo-opcion-3.jpg);
   color: var(--color-texto);
 }
+
+@keyframes checkout-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes checkout-panel {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

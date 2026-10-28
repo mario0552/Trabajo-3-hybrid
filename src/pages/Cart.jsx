@@ -1,17 +1,23 @@
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router";
+import { useContext, useState } from "react";
+import { Link } from "react-router";
 import { CartContext } from "../context/CartContext";
 import { ProductsContext } from "../context/ProductsContext";
 import { getUser } from "../utils/auth";
+import CheckoutSuccessModal from "../components/CheckoutSuccessModal";
 
 const formatPrice = (price) => `$ ${Number(price).toLocaleString("es-AR")}`;
 
 function Cart() {
-  const navigate = useNavigate();
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const user = getUser();
   const { products } = useContext(ProductsContext);
   const { cart, total, updateQuantity, removeFromCart, clearCart } =
     useContext(CartContext);
+
+  const finishCheckout = () => {
+    clearCart();
+    setIsCheckoutModalOpen(false);
+  };
 
   if (!user) {
     return (
@@ -152,13 +158,16 @@ function Cart() {
             </p>
             <button
               type="button"
-              onClick={() => navigate("/404")}
+              onClick={() => setIsCheckoutModalOpen(true)}
               className="mt-5 w-full rounded-full bg-principal px-5 py-3 font-bold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-principal"
             >
-              Finalizar compra
+              Terminar la compra
             </button>
           </aside>
         </div>
+      )}
+      {isCheckoutModalOpen && (
+        <CheckoutSuccessModal onClose={finishCheckout} />
       )}
     </section>
   );
