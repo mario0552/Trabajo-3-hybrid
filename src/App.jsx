@@ -24,22 +24,21 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/no-autorizado" element={<Unauthorized />} />
         {/* Protegida solo por login: cualquier usuario con sesión */}
-<Route element={<ProtectedRoute />}>
-  <Route path="/wishlist" element={<Wishlist />} />
-</Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/wishlist" element={<Wishlist />} />
+        </Route>
 
         {/* Protegida por login + role: solo "admin" */}
         <Route element={<ProtectedRoute allowedRole="admin" />}>
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/usuarios" element={<AdminUsers />} />
         </Route>
-
       </Route>
       <Route path="/contacto" element={<NotFound />} />
       <Route path="/404" element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
+      <Route path="/no-autorizado" element={<Unauthorized />} />
     </Routes>
   );
 }

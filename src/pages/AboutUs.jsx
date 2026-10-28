@@ -1,10 +1,14 @@
 import TeamCard from "../components/TeamCard";
+import jonaiker from "../assets/jn.jpeg";
+import will from "../assets/will.jpg";
+import isa from "../assets/is.jpeg";
+import fer from "../assets/fl.jpeg";
 
 const team = [
-  { name: "Jonaiker noriega", role: "Frontend", image: "src/assets/WhatsApp Image 2026-10-25 at 10.25.42 PM.jpeg" },
-  { name: "William Lopez", role: "Frontend", image: "https://raw.githubusercontent.com/mario0552/codigo-hybrid-jona/ec7c8e1a55a648e787e4e2169a4bff20c958e42e/assets/images/ribhavagrawal-ai-generated-8979714.jpg" },
-  { name: "Isaias Emanuel Soria", role: "Frontend", image: "src/assets/is.jpeg" },
-  { name: "Mario Fernando López", role: "Scrum Master", image: "src/assets/fl.jpeg" },
+  { name: "Jonaiker Noriega", role: "Tech-Leader", image: jonaiker },
+  { name: "William Lopez", role: "Frontend", image: will },
+  { name: "Isaias Emanuel Soria", role: "Frontend", image: isa },
+  { name: "Mario Fernando López", role: "Scrum Master", image: fer },
 ];
 
 const statistics = [
@@ -15,13 +19,10 @@ const statistics = [
 
 function AboutUs() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100">
+    <main className="min-h-screen text-texto">
       <section className="relative isolate overflow-hidden border-b border-zinc-800">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(245,158,11,0.13),transparent_48%)]"
-        />
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20 lg:py-24">
+        <div />
+        <div className="mx-auto my-8 w-[calc(100%-2rem)] max-w-6xl rounded-2xl border border-borde bg-superficie/80 p-6 backdrop-blur-sm sm:my-12 sm:p-10">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-amber-500">
             Hybrid Parts
           </p>
