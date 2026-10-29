@@ -42,7 +42,7 @@ function Contact() {
       <h1 className="mb-6 text-3xl font-bold">CONTACTO</h1>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-borde">
+        <div className="aspect-4/3 overflow-hidden rounded-2xl border border-borde">
           <iframe
             src="https://maps.google.com/maps?q=Av.%20Libertador%201234%2C%20Buenos%20Aires&output=embed"
             title="Ubicación de HybridParts en el mapa"
