@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import fondoAncho from "../assets/gato-mecanico.webp";
+import fondoAncho from "../assets/Gato-mecanico.webp";
 import fondoVertical from "../assets/no-autorizado-pq.jpg";
 
 function Unauthorized() {
