@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function Footer() {
   return (
     <footer className="mt-12 border-t border-borde bg-superficie/50 backdrop-blur-sm">
@@ -33,13 +35,9 @@ function Footer() {
               </a>
             </li>
             <li>
-              <a
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <Link to="/404">
                 YouTube
-              </a>
+              </Link>
             </li>
             <li>
               <a href="https://wa.me/" target="_blank" rel="noreferrer">

@@ -1,6 +1,6 @@
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import { Routes, Route } from "react-router";
+import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
@@ -8,35 +8,39 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Admin from "./pages/Admin";
 import AboutUs from "./pages/AboutUs";
+import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
-
+import Cart from "./pages/Cart";
+import AdminUsers from "./pages/AdminUsers";
+import Wishlist from "./pages/Wishlist";
+  import Contact from "./pages/Contact";
 function App() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Navbar />
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/productos" element={<Products />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute adminOnly>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/productos" element={<Products />} />
+        <Route path="/carrito" element={<Cart />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<AboutUs />} />
+        {/* Protegida solo por login: cualquier usuario con sesión */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/contacto" element={<Contact />} />
+        </Route>
+
+        {/* Protegida por login + role: solo "admin" */}
+        <Route element={<ProtectedRoute allowedRole="admin" />}>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/usuarios" element={<AdminUsers />} />
+        </Route>
+      </Route>
+      <Route path="/404" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
+      <Route path="/no-autorizado" element={<Unauthorized />} />
+    </Routes>
   );
 }
 

@@ -1,5 +1,92 @@
-function ProductCard() {
-  return <div></div>;
+import { useContext, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { CartContext } from "../context/CartContext";
+import { getUser } from "../utils/auth";
+import WishlistButton from "./WishlistButton";
+function ProductCard({ product }) {
+  const navigate = useNavigate();
+  const { addToCart, getAvailableStock } = useContext(CartContext);
+  const [justAdded, setJustAdded] = useState(false);
+  const feedbackTimeout = useRef(null);
+  const { id, nombre, categoria, marca, precio, imagen } = product;
+  const isAuthenticated = Boolean(getUser());
+  const stock = getAvailableStock(product);
+  const soldOut = stock === 0;
+
+  useEffect(
+    () => () => {
+      window.clearTimeout(feedbackTimeout.current);
+    },
+    [],
+  );
+
+  const handleAddToCart = () => {
+    if (!getUser()) {
+      navigate("/register");
+      return;
+    }
+
+    if (!addToCart(product)) return;
+
+    setJustAdded(true);
+    window.clearTimeout(feedbackTimeout.current);
+    feedbackTimeout.current = window.setTimeout(() => {
+      setJustAdded(false);
+    }, 800);
+  };
+
+  return (
+    <article
+      className={`relative flex flex-col overflow-hidden rounded-2xl border bg-superficie backdrop-blur-sm transition duration-300 ${
+        justAdded
+          ? "scale-[1.02] border-principal shadow-[0_0_28px_rgba(255,122,0,0.28)]"
+          : "border-borde"
+      }`}
+    >
+      <div className="absolute right-3 top-3 z-10">
+  <WishlistButton productId={id} />
+</div>
+      <img
+        src={imagen}
+        alt={nombre}
+        loading="lazy"
+        className="h-48 w-full object-cover"
+      />
+
+      <div className="flex flex-1 flex-col gap-2 p-4">
+        <span className="text-xs uppercase tracking-wide text-suave">
+          {categoria} · {marca}
+        </span>
+        <h2 className="text-lg font-semibold">{nombre}</h2>
+        <p className="text-xl font-bold text-principal">
+          $ {precio.toLocaleString("es-AR")}
+        </p>
+        <p className={`text-sm ${soldOut ? "text-red-400" : "text-suave"}`}>
+          {soldOut ? "Sin stock" : `Stock: ${stock}`}
+        </p>
+        <button
+          type="button"
+          onClick={handleAddToCart}
+          disabled={soldOut}
+          className="rounded-full border border-principal px-4 py-2 font-semibold text-principal transition hover:bg-principal hover:text-white disabled:cursor-not-allowed disabled:border-borde disabled:text-suave"
+          aria-live="polite"
+        >
+          {justAdded
+            ? "¡Agregado!"
+            : isAuthenticated
+              ? "Agregar al carrito"
+              : "Crear cuenta para comprar"}
+        </button>
+
+        <Link
+          to={`/product/${id}`}
+          className="mt-auto rounded-full bg-principal py-2 text-center font-semibold text-white hover:opacity-90"
+        >
+          Ver detalle
+        </Link>
+      </div>
+    </article>
+  );
 }
 
 export default ProductCard;
