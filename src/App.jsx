@@ -13,7 +13,8 @@ import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
 import AdminUsers from "./pages/AdminUsers";
 import Wishlist from "./pages/Wishlist";
-  import Contact from "./pages/Contact";
+import Contact from "./pages/Contact";
+
 function App() {
   return (
     <Routes>
@@ -25,10 +26,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/contacto" element={<Contact />} />
         {/* Protegida solo por login: cualquier usuario con sesión */}
         <Route element={<ProtectedRoute />}>
           <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/contacto" element={<Contact />} />
         </Route>
 
         {/* Protegida por login + role: solo "admin" */}
